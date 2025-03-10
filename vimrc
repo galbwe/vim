@@ -1,21 +1,52 @@
 set scrolloff=8
-set number
-set relativenumber
 set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
 set smartindent
-set hls ic
+" show line numbers
+set number
+" highlight search results
+set hls
+" ignore case when searching
+set ic
+" match case when searching for strings that contain capital letters
+set smartcase
+" highlight the line the cursor is on
+set cursorline
+" do not save backup files
+set nobackup
+" do not wrap lines
+set nowrap
+" increase the number of lines saved during a search
+set history=1000
+" enable auto completion menu after pressing TAB
+set wildmenu
+" make wildmenu behave similar to bash completion
+set wildmode=list:longest
+" ignore file types we would never want to edit with vim
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+" set default fold method to indent
+set foldmethod=indent
+set foldcolumn=2
+
+
+" PLUGINS ----------------------------------------------------------------------- {{{
+" detect the filetype and load plugins for the specific filetype
+filetype on
+filetype plugin on
+filetype plugin indent on
 
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'lifepillar/vim-solarized8'
 Plug 'morhetz/gruvbox'
+Plug 'TheNiteCoder/mountaineer'
 Plug 'axelf4/vim-strip-trailing-whitespace'
 Plug 'preservim/nerdtree'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'tpope/ctrlp.vim'
+Plug 'tpope/ctrlp'
+Plug 'tpope/vim-commentary'
 
 " clojure development plugins
 Plug 'guns/vim-clojure-highlight'
@@ -34,6 +65,7 @@ Plug 'clojure-vim/async-clj-omni'
 Plug 'prabirshrestha/asyncomplete.vim'
 call plug#end()
 
+" }}}
 
 set background=dark
 " set the theme
@@ -74,6 +106,12 @@ nnoremap <leader>cn :cnext<CR>
 " Open NERDTree
 nnoremap <leader>nt :NERDTree<CR>
 
+" toggle the current fold
+nnoremap <space> za
+
+" split the current window vertically
+nnoremap <leader>vs :vsplit<CR>
+
 " ripgrep config
 let g:ackprg = 'rg --vimgrep'
 let g:ack_autoclose = 1
@@ -87,9 +125,34 @@ nnoremap <leader>tt :tab terminal<CR>
 " create a terminal window with a horizontal split
 nnoremap <leader>th :tab terminal<CR>
 
+"VIMSCRIPT --------------------------------------------------------------- {{{
+
 " asyncomplete configuration
 au User asyncomplete_setup call asyncomplete#register_source({
     \ 'name': 'async_clj_omni',
     \ 'whitelist': ['clojure'],
     \ 'completor': function('async_clj_omni#sources#complete'),
     \ })
+
+
+" set up windows when starting vim and run a filetree and terminal
+au VimEnter * :NERDTree
+au VimEnter * wincmd w
+au VimEnter * :term
+au VimEnter * :resize 15
+au VimEnter * wincmd r
+au VimEnter * wincmd k
+au VimEnter * :vsplit
+
+
+" enable code folding
+" use the marker method of folding
+" zo to open a single fold under the cursor
+" zc to close the fold under the cursor
+" zR to open all folds
+" zM to close all folds
+augroup python_folding
+    autocmd!
+    autocmd FileType python setlocal foldmethod=indent
+augroup END
+" }}}
