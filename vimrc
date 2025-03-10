@@ -112,6 +112,12 @@ nnoremap <space> za
 " split the current window vertically
 nnoremap <leader>vs :vsplit<CR>
 
+" navigate bewteen windows by holding control while using movement keys
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
 " ripgrep config
 let g:ackprg = 'rg --vimgrep'
 let g:ack_autoclose = 1
@@ -145,13 +151,7 @@ au VimEnter * wincmd k
 au VimEnter * :vsplit
 
 
-" enable code folding
-" use the marker method of folding
-" zo to open a single fold under the cursor
-" zc to close the fold under the cursor
-" zR to open all folds
-" zM to close all folds
-augroup python_folding
+augroup python_settings
     autocmd!
     autocmd FileType python setlocal foldmethod=indent
 augroup END

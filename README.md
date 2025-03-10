@@ -12,5 +12,26 @@ If you want to copy the vimrc file in this directory to the `.vimrc` file in you
 
 ## Development
 
-Run `make fmt` to strip trailing whitespace form the vimrc file.
+Run `make fmt` to strip trailing whitespace from files.
 
+## Command Cheatsheat
+
+### Code Navigation
+
+| Action                                | Keys                          |
+| ------------------------------------- | ----------------------------- |
+| Toggle the current Fold               | space                         |
+| Open All Folds                        | z + R                         |
+| Close All Folds                       | z + M                         |
+| Move Left One Window                  | ctrl + h                      |
+| Move Down One Window                  | ctrl + j                      |
+| Move Up One Window                    | ctrl + k                      |
+| Move Right One Window                 | ctrl + l                      |
+| Move out of the terminal window       | ctrl-w + k                    |
+| Search for some text in this file     | :/<search-term>               | 
+
+### Editing
+
+| Action                                | Keys                          |
+| comment the current line              | gcc                           |
+| comment visual selection              | gc                            |
