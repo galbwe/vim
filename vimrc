@@ -28,6 +28,8 @@ set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx,nod
 " set default fold method to indent
 set foldmethod=indent
 set foldcolumn=2
+" ensure all folds are open when opening a file
+set foldlevelstart=99
 " reread open files when they change from another process
 set autoread
 
@@ -136,9 +138,6 @@ inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 let g:ackprg = 'rg --vimgrep'
 let g:ack_autoclose = 1
 cnoreabbrev Ack Ack!
-
-" GoTo Definition with YouCompleteMe
-map <leader>yg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " configure in editor terminal
 " set termwinsize=30x200
