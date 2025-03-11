@@ -24,7 +24,7 @@ set wildmenu
 " make wildmenu behave similar to bash completion
 set wildmode=list:longest
 " ignore file types we would never want to edit with vim
-set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx,node_modules/**
 " set default fold method to indent
 set foldmethod=indent
 set foldcolumn=2
@@ -61,8 +61,10 @@ Plug 'SevereOverfl0w/vim-replant', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fireplace'
 
-Plug 'clojure-vim/async-clj-omni'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 call plug#end()
 
 " }}}
@@ -118,6 +120,11 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" asynccomplete.vim autocompletion for lsp servers
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+
 " ripgrep config
 let g:ackprg = 'rg --vimgrep'
 let g:ack_autoclose = 1
@@ -132,6 +139,12 @@ nnoremap <leader>tt :tab terminal<CR>
 nnoremap <leader>th :tab terminal<CR>
 
 "VIMSCRIPT --------------------------------------------------------------- {{{
+
+au User lsp_setup call lsp#register_server({
+      \ 'name': 'clojure-lsp',
+      \ 'cmd': {server_info->[&shell, &shellcmdflag, '$HOME/.local/share/vim-lsp-settings/servers/clojure-lsp/clojure-lsp']},
+      \ 'allowlist': ['clojure', 'clojurescript']
+      \ })
 
 " asyncomplete configuration
 au User asyncomplete_setup call asyncomplete#register_source({

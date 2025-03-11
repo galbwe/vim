@@ -31,7 +31,13 @@ Run `make fmt` to strip trailing whitespace from files.
 | Search for some text in this file     | :/<search-term>               | 
 
 ### Editing
-
+| ------------------------------------- | ----------------------------- |
 | Action                                | Keys                          |
 | comment the current line              | gcc                           |
 | comment visual selection              | gc                            |
+
+### Language Server Protocols
+| ------------------------------------- | ----------------------------- |
+| Install LSP Server for current file   | :LspInstallServer             |
+| Uninstall LSP Server                  | :LspUninstallServer           |
+| Goto Definition                       | gd or gD with cursor over def |
