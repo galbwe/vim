@@ -49,6 +49,7 @@ Plug 'preservim/nerdtree'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/ctrlp'
 Plug 'tpope/vim-commentary'
+Plug 'sheerun/vim-polyglot'
 
 " clojure development plugins
 Plug 'guns/vim-clojure-highlight'
@@ -67,10 +68,14 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+" Python development plugins
+Plug 'vim-scripts/indentpython.vim'
+Plug 'davidhalter/jedi-vim'
 call plug#end()
 
-" }}}
-
+" do not use vi compatibility mode
+set nocp
 set background=dark
 " set the theme
 autocmd vimenter * ++nested colorscheme gruvbox
@@ -132,6 +137,8 @@ let g:ackprg = 'rg --vimgrep'
 let g:ack_autoclose = 1
 cnoreabbrev Ack Ack!
 
+" GoTo Definition with YouCompleteMe
+map <leader>yg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " configure in editor terminal
 " set termwinsize=30x200
@@ -147,6 +154,14 @@ au User lsp_setup call lsp#register_server({
       \ 'cmd': {server_info->[&shell, &shellcmdflag, '$HOME/.local/share/vim-lsp-settings/servers/clojure-lsp/clojure-lsp']},
       \ 'allowlist': ['clojure', 'clojurescript']
       \ })
+
+" if executable('pylsp')
+"     au User lsp_setup call lsp#register_server({
+"         \ 'name': 'pylsp',
+"         \'cmd': {server_info->['pylsp']},
+"         \ 'allowlist: ['python'],
+"         \ })
+" endif
 
 " asyncomplete configuration
 au User asyncomplete_setup call asyncomplete#register_source({
@@ -168,8 +183,12 @@ au VimEnter * :vsplit
 " reread open files after inactivity
 au CursorHold * checktime
 
+" Python configuration
 augroup python_settings
     autocmd!
     autocmd FileType python setlocal foldmethod=indent
+    au FileType python setlocal encoding=utf-8
+    " Flag unnecessary whitespace
 augroup END
+
 " }}}

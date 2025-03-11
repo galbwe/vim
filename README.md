@@ -29,15 +29,49 @@ Run `make fmt` to strip trailing whitespace from files.
 | Move Right One Window                 | ctrl + l                      |
 | Move out of the terminal window       | ctrl-w + k                    |
 | Search for some text in this file     | :/<search-term>               | 
+| Go back in location history           | ctrl + o                      |
+| Go forward in location history        | ctrl + i                      |
+| 
 
 ### Editing
-| ------------------------------------- | ----------------------------- |
+
 | Action                                | Keys                          |
+| ------------------------------------- | ----------------------------- |
 | comment the current line              | gcc                           |
 | comment visual selection              | gc                            |
 
 ### Language Server Protocols
+
+| Action                                | Keys                          |
 | ------------------------------------- | ----------------------------- |
 | Install LSP Server for current file   | :LspInstallServer             |
 | Uninstall LSP Server                  | :LspUninstallServer           |
 | Goto Definition                       | gd or gD with cursor over def |
+
+### Clojure
+
+| Action                                | Keys                          |
+| ------------------------------------- | ----------------------------- |
+| Get symbol definition from docs       | K with cursor over symbol     |
+| Run visual seletion                   | :Eval                         |
+
+### Python
+
+| Action                                | Keys                                           |
+| ------------------------------------- | ---------------------------------------------- |
+| Show completions                      | ctrl + space                                   |
+| Show docstring for symbol             | shift + k                                      |
+| Goto definition                       | <leader> + d                                   |
+| Goto assignment                       | <leader> + g                                   |
+| Goto stub (package definition)        | <leader> + s                                   |
+| Set jedi interpreter to venv          | :let g:jedi#environment_path="venv/bin/python" |
+
+
+### Macros
+
+1. Press `qa` to start recording. Can replace `a` with a different character to record to a different register.
+1. Type your command. If it is line by line, make sure to add `j` at the end of the commands to go to the next line.
+1. Press `q` to stop recording.
+1. Replay the macro with `@a`. Replace `a` with the register used if necessary.
+    - you can replay the macro again with `@@` or repeat it multiple times with `10@a`.
+
