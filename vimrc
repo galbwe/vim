@@ -28,6 +28,8 @@ set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx,nod
 " set default fold method to indent
 set foldmethod=indent
 set foldcolumn=2
+" reread open files when they change from another process
+set autoread
 
 
 " PLUGINS ----------------------------------------------------------------------- {{{
@@ -163,6 +165,8 @@ au VimEnter * wincmd r
 au VimEnter * wincmd k
 au VimEnter * :vsplit
 
+" reread open files after inactivity
+au CursorHold * checktime
 
 augroup python_settings
     autocmd!
